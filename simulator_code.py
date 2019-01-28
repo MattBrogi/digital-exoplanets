@@ -216,7 +216,7 @@ def process_model(spec, air, tell):
 def get_logL(pars, wMod, fMod, wObs, F, RV, ph):
     air = np.exp(np.load('air.npy'))
     tell = np.exp(np.load('atm_trans.npy'))
-    fMod1 = scale_model(fMod*np.pi*7, wMod)
+    fMod1 = scale_model(fMod*np.pi, wMod)
     K, V = pars
     # Initialising log-likelihood
     logLZ = 0
@@ -250,7 +250,7 @@ def get_logL(pars, wMod, fMod, wObs, F, RV, ph):
 
 def run_mcmc(kp0, vr0, wMod, fMod, wData, fData, rvel, ph):
     initPos = (kp0, vr0)
-    initDeltas = (5.0, 1.5)
+    initDeltas = (kp0/1E4, 0.01)
     nPar = len(initPos)
     nWalkers = 10
     chainLen = 500
